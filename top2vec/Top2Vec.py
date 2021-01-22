@@ -2118,7 +2118,7 @@ class Top2Vec:
                       background_color=background_color).generate_from_frequencies(word_score_dict))
         plt.title("Topic " + str(topic_num), loc='left', fontsize=25, pad=20)
 
-    def generate_documents_plot(self, background_color="black", reduced=False):
+    def generate_documents_plot(self, background_color="black", reduced=None):
         """
         Create a documents and topics scatter plot.
 
@@ -2148,8 +2148,8 @@ class Top2Vec:
 
         """
 
+        reduced = self._validate_hierarchical_reduction(reduced)
         if reduced:
-            self._validate_hierarchical_reduction()
             topic_vectors = self.topic_vectors_reduced
             topic_sizes, topic_nums = self.get_topic_sizes(reduced=True)
             doc_topics = self.doc_top_reduced
