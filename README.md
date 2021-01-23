@@ -1,3 +1,31 @@
+Easy Top2Vec
+======= 
+This repository provides utils for easy use of [Top2Vec](https://github.com/ddangelov/Top2Vec) libraries.
+- `generate_documents_plot()`: Simple scatter plot for documents and topics
+  
+  This funtion show you a scatter plot for documents and topics. Documents on the same topic display in the same color. On the plot, circles mean documents, and numbers mean the number of topic.    
+  Cautions: The plot should only be considered as approximate information because it is a result of dimention reduction from 5D to 2D. And it could be hard to distinguish for more than 20 topics. In this case, use the reduced option. Nevertheless, it can help a lot to discover outliers or check the status of reduced topics.
+  ```
+  model.generate_documents_plot(background_color="black", reduced=None)
+  ```
+  ![documents_plot](./images/documents_plot.PNG)
+
+- Change the **default action of reduced parameter**
+  
+   When I used this library at first, the default action of reduced parameter was somewhat uncomfortable and strange. After the `hierarchical_topic_reduction` function is excuted to reduce the number of topics, I expected the default action of the other functions like `get_documents_topics()` to run on reduced topics.   
+   So I changed the default action of reduced parameter. If the user don't put the reduced parameters, the default action is depends on whether `hierarchical_topic_reduction` function is execute before or not.
+   ```
+  model.get_topic_sizes() # return 30
+  model.hierarchical_topic_reduction(15)
+
+  model.get_topic_sizes() # return 15
+  model.get_topic_sizes(reduced=True) # return 15
+  model.get_topic_sizes(reduced=False) # return 30
+   ```
+<br>
+<br>
+----------
+
 [![](https://img.shields.io/pypi/v/top2vec.svg)](https://pypi.org/project/top2vec/)
 [![](https://img.shields.io/pypi/l/top2vec.svg)](https://github.com/ddangelov/Top2Vec/blob/master/LICENSE)
 [![](https://readthedocs.org/projects/top2vec/badge/?version=latest&token=0c691c6cc79b4906e35e8b7ede01e815baa05041d048945fa18e26810a3517d7)](https://top2vec.readthedocs.io/en/latest/?badge=latest)
