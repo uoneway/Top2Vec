@@ -345,7 +345,7 @@ class Top2Vec:
         
         self.umap_args = {'n_neighbors': 15,
                             'n_components': 5,
-                            'metric': 'cosine'} if umap_args is not None else umap_args
+                            'metric': 'cosine'} if umap_args is None else umap_args
         umap_model = umap.UMAP(**self.umap_args).fit(self._get_document_vectors(norm=False))
 
         # find dense areas of document vectors
@@ -353,7 +353,7 @@ class Top2Vec:
         
         self.hdbscan_args = {'min_cluster_size': 15,
                             'metric': 'euclidean',
-                            'cluster_selection_method': 'eom'} if hdbscan_args is not None else hdbscan_args
+                            'cluster_selection_method': 'eom'} if hdbscan_args is None else hdbscan_args
         cluster = hdbscan.HDBSCAN(**self.hdbscan_args).fit(umap_model.embedding_)
 
         # calculate topic vectors from dense areas of documents
